@@ -1,0 +1,40 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Ovidiu
+ * Date: 9/18/2017
+ * Time: 1:00 PM
+ */
+
+
+?>
+<div class="wrap">
+	<h3><?php echo __( 'Settings:', 'alkaweb' ); ?></h3>
+
+	<table class="widefat fixed">
+		<tbody>
+		<tr>
+			<td scope="row">
+				<?php echo __( 'Facebook App ID', 'alkaweb' ); ?>
+			</td>
+			<td>
+				<input style="width: 100%;" id="alka-fb-app-id" type="text" value="<?php echo $alka_app_id; ?>"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?php echo __( 'Facebook App Secret', 'alkaweb' ); ?>
+			</td>
+			<td>
+				<input style="width: 100%;" id="alka-fb-app-secret" type="text" value="<?php echo $alka_app_secret; ?>"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button class="button button-primary" id="alkaweb-facebook-details"><?php echo __( 'Submit', 'alkaweb' ); ?></button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
+</div>
