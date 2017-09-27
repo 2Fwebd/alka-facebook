@@ -11,13 +11,21 @@
  * GitHub Plugin URI: https://github.com/2Fwebd/alka-facebook
  */
 
+
+/*
+ * Plugin constants
+ */
+if(!defined('ALKA_FACEBOOK_URL'))
+	define('ALKA_FACEBOOK_URL', plugin_dir_url( __FILE__ ));
+if(!defined('ALKA_FACEBOOK_PATH'))
+	define('ALKA_FACEBOOK_PATH', plugin_dir_path( __FILE__ ));
+
 /*
  * Import the Facebook SDK and load all the classes
  */
-include (plugin_dir_path( __FILE__ ) . 'facebook-sdk/autoload.php');
+include (ALKA_FACEBOOK_PATH . 'facebook-sdk/autoload.php');
 
 /*
  * Import the plugin classes
  */
-include (plugin_dir_path( __FILE__ ) . 'classes/AlkaFacebook.php');
-
+include (ALKA_FACEBOOK_PATH . 'classes/AlkaFacebook.php');

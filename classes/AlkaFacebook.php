@@ -70,6 +70,15 @@ class AlkaFacebook{
         add_action( 'wp_ajax_alka_facebook', array($this, 'apiCallback'));
         add_action( 'wp_ajax_nopriv_alka_facebook', array($this, 'apiCallback'));
 
+        // Add our button css file
+	    add_action( 'wp_enqueue_scripts', array($this, 'addButtonCSS'));
+    }
+
+	/**
+	 * Enqueue the plugin's css file
+	 */
+    public function addButtonCSS() {
+	    wp_enqueue_style( 'alka-facebook-button', ALKA_FACEBOOK_URL. '/assets/css/button-style.css' );
     }
 
     /**
@@ -114,7 +123,8 @@ class AlkaFacebook{
         }
 
         // Button
-        $html .= '<a href="'.$this->getLoginUrl().'" class="btn" id="alka-facebook-button">'.$button_label.'</a>';
+	    $logo = '<img src="'. ALKA_FACEBOOK_URL. '/assets/images/fb-logo.png" alt="Facebook logo">';
+        $html .= '<a href="'.$this->getLoginUrl().'" class="btn" id="alka-facebook-button">'. $logo . $button_label .'</a>';
 
         $html .= '</div>';
 

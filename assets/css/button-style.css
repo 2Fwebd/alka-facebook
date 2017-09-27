@@ -1,0 +1,24 @@
+/**
+ * CSS for the Alka Facebook plugin
+ */
+#alka-facebook-wrapper{
+    margin: 20px 0;
+}
+#alka-facebook-wrapper a#alka-facebook-button{
+    color: #FFF;
+    background: #3b5998;
+    border-radius: 5px;
+    box-shadow: 0 5px 0 0 #091e57;
+    padding: 10px 30px 20px 30px;
+    text-decoration: none;
+    display: inline-block;
+}
+#alka-facebook-wrapper a#alka-facebook-button img{
+    box-shadow: none;
+    width: 30px;
+    padding-right: 30px;
+    box-sizing: content-box;
+    display: inline-block;
+    position: relative;
+    bottom: -10px;
+}
