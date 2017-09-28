@@ -15,27 +15,6 @@ use Facebook\Exceptions\FacebookResponseException;
 class AlkaFacebook{
 
     /**
-     * Facebook APP ID
-     *
-     * @var string
-     */
-    private $app_id = '379799619063581';
-
-    /**
-     * Facebook APP Secret
-     *
-     * @var string
-     */
-    private $app_secret = '4cd987b6950848fa1b2874deb0ec6f52';
-
-    /**
-     * Callback URL used by the API
-     *
-     * @var string
-     */
-    private $callback_url = 'http://localhost:8888/wordpress/wp-admin/admin-ajax.php?action=alka_facebook';
-
-    /**
      * Access token from Facebook
      *
      * @var string
@@ -140,9 +119,15 @@ class AlkaFacebook{
      */
     private function initApi() {
 
+    	$credentials = self::getCredentials();
+
+    	// Only if we have some credentials, ideally an Exception would be thrown here
+    	if(!isset($credentials['app_id']) || !isset($credentials['app_secret']))
+    		return null;
+
         $facebook = new Facebook([
-            'app_id' => $this->app_id,
-            'app_secret' => $this->app_secret,
+            'app_id' => $credentials['app_id'],
+            'app_secret' => $credentials['app_secret'],
             'default_graph_version' => 'v2.2',
             'persistent_data_handler' => 'session'
         ]);
@@ -169,7 +154,7 @@ class AlkaFacebook{
         // Optional permissions
         $permissions = ['email'];
 
-        $url = $helper->getLoginUrl($this->callback_url, $permissions);
+        $url = $helper->getLoginUrl(self::getCallbackUrl(), $permissions);
 
         return esc_url($url);
 
@@ -271,16 +256,14 @@ class AlkaFacebook{
         try {
             $response = $fb->get('/me?fields=id,name,first_name,last_name,email,link', $this->access_token);
         } catch(FacebookResponseException $e) {
-            $message = __('Graph returned an error: ','alkaweb'). $e->getMessage();
             $message = array(
                 'type' => 'error',
-                'content' => $error
+                'content' => $e->getMessage()
             );
         } catch(FacebookSDKException $e) {
-            $message = __('Facebook SDK returned an error: ','alkaweb'). $e->getMessage();
             $message = array(
                 'type' => 'error',
-                'content' => $error
+                'content' => $e->getMessage()
             );
         }
 
@@ -385,6 +368,24 @@ class AlkaFacebook{
         wp_mail( $email, $subject, $body, $headers );
 
     }
+
+	/**
+	 * Returns the Facebook credentials as an array containing app_id and app_secret
+	 *
+	 * @return array
+	 */
+	static function getCredentials() {
+		return get_option( 'alka_facebook', array() );
+	}
+
+	/**
+	 * Returns the callback URL
+	 *
+	 * @return string
+	 */
+	static function getCallbackUrl() {
+		return get_admin_url( null, 'admin-ajax.php?action=alka_facebook' );
+	}
 
 
 }

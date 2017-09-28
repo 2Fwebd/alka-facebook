@@ -29,3 +29,4 @@ include (ALKA_FACEBOOK_PATH . 'facebook-sdk/autoload.php');
  * Import the plugin classes
  */
 include (ALKA_FACEBOOK_PATH . 'classes/AlkaFacebook.php');
+include (ALKA_FACEBOOK_PATH . 'classes/AlkaAdmin.php');
